@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ExcleReadWrite03or07</string>
+    <string name="read2003">读excel2003</string>
+    <string name="read2007">读excel2007</string>
+    <string name="content">内容!</string>
+    <string name="write2003">写excel2003</string>
+    <string name="write2007">写excel2007</string>
+</resources>
