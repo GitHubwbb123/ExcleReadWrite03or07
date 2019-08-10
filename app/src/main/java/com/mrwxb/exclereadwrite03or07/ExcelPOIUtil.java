@@ -177,14 +177,15 @@ public  class ExcelPOIUtil {
                 XSSFCell xssfCell=xssfRow.createCell(cul);//这里createCell/gerCell都可以，因为是写，不是读。
                 xssfCell.setCellValue(content);
                 OutputStream outputStream=new FileOutputStream(filePath);//这里用file或则filePath都可以，
-                xssfWorkbook.write(outputStream);
+                xssfWorkbook.write(outputStream);//这里一定要用xssfWorkbook.write(outputStream);写出到excel文件才可以用，用  file.createNewFile()方法或则Workbook workbook = WorkbookFactory.create(myInput);方法得到的workbook对象的write方法是不能新建excel成功的，即使成功也不能读写
                 outputStream.flush();
                 outputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
+
             }
            /* try {
-                InputStream myInput = getAssets().open("2007.xlsx");
+                InputStream myInput = getAssets().open("2007.xlsx");//因为WorkbookFactory生成的workbook对象的write方法新建的excel不能读写，因此之前的方法是在assets文件夹下放一个2003.xls文件作为副本，现在用的HSS或则XSS新建的excel能够读写，因此删除了assets文件夹及文件
                 Workbook workbook = WorkbookFactory.create(myInput);
                 final Sheet  mySheet = workbook.getSheetAt(0);
                 Row myRow;
@@ -202,8 +203,8 @@ public  class ExcelPOIUtil {
             } catch (Exception e) {
                 e.printStackTrace();
             }*/
-            /***Workbook workbook = WorkbookFactory.create(myInput);得到的workbook，在新建时，建立的excel不能用，最后在workbook.write(outputStream)的时候写不进excel,文件是空的，
-             * 只能用HSSFWorkbook hssfWorkbook=new HSSFWorkbook();得到的hssfWorkbook对象最后workbook.write(outputStream);新建文件，写出的输出流才能写进excel，只要新建成功，以后就随便用factory或则HSS,XSS，都可以读写
+            /***Workbook workbook = WorkbookFactory.create(myInput);这句话得到的workbook，在新建时，建立的excel不能用，最后在workbook.write(outputStream)的时候写不进excel,文件是空的，
+             * 只能用HSSFWorkbook hssfWorkbook=new HSSFWorkbook();得到的hssfWorkbook对象最后，执行hssfWorkbook.write(outputStream);方法，新建文件，写出的输出流才能写进excel，只要新建成功，以后就随便用factory或则HSS,XSS，都可以读写
              * 备注：
              */
         }
